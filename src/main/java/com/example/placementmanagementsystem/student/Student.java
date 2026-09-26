@@ -1,9 +1,9 @@
 package com.example.placementmanagementsystem.student;
 
-import com.example.placementmanagementsystem.common.models.Users;
+import com.example.placementmanagementsystem.application.Application;
+import com.example.placementmanagementsystem.offer.Offer;
+import com.example.placementmanagementsystem.user.Users;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,24 +11,27 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class Student{
+public class Student {
+    @Id
+    private Integer id;
     @OneToOne
-    @JoinColumn(name ="student_profile")
-    private Users studentProfile;
+    @JoinColumn(name = "userProfile")
+    @MapsId
+    private Users usersProfile;
     @NotNull
     private double cgpa;
-    @Min(1)
-    private int semester;
-    @NotBlank
-    private String rollNo;
-    @NotBlank
-    @Enumerated(EnumType.STRING)
-    private StudentDepartment studentDepartment;
     @JdbcTypeCode(SqlTypes.VARBINARY)
     private byte[] resume;
-    private ArrayList<String> skills;
+    private List<String> skills=new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name="JobApplication")
+    private Application application;
+    @OneToOne
+    @JoinColumn(name="JobOffer")
+    private Offer offer;
 }

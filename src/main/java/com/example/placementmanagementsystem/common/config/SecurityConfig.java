@@ -1,6 +1,7 @@
-package com.example.placementmanagementsystem.config;
+package com.example.placementmanagementsystem.common.config;
 
-import com.example.placementmanagementsystem.service.MyUserDetailsService;
+
+import com.example.placementmanagementsystem.common.service.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

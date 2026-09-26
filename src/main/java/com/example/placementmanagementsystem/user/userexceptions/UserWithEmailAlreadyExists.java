@@ -1,4 +1,4 @@
-package com.example.placementmanagementsystem.common.exception;
+package com.example.placementmanagementsystem.user.userexceptions;
 
 public class UserWithEmailAlreadyExists extends RuntimeException {
     public UserWithEmailAlreadyExists(String message) {

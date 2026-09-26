@@ -1,6 +1,5 @@
-package com.example.placementmanagementsystem.common.models;
+package com.example.placementmanagementsystem.user;
 
-import com.example.placementmanagementsystem.common.enums.Roles;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,9 +8,12 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
+@Table(name = "Users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,16 +25,14 @@ public class Users {
     private String email;
     @NotBlank
     private String password;
-    @CreationTimestamp
-    private String CreatedAt;
-    @UpdateTimestamp
-    private String UpdatedAt;
+    @Enumerated(EnumType.STRING)
+    private UserType role;
+    private boolean enabled;
+    private boolean emailVerified;
     @NotBlank
     private String phoneNumber;
-    @Column(nullable = false)
-    private boolean enabled;
-    @Column(nullable = false)
-    private boolean emailVerified;
-    @Enumerated(EnumType.STRING)
-    private Roles roles;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }
