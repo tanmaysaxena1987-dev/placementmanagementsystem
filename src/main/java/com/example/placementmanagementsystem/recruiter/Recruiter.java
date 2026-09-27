@@ -1,16 +1,16 @@
-package com.example.placementmanagementsystem.student;
+package com.example.placementmanagementsystem.recruiter;
 
 import com.example.placementmanagementsystem.application.Application;
+import com.example.placementmanagementsystem.company.Company;
+import com.example.placementmanagementsystem.job.Job;
 import com.example.placementmanagementsystem.offer.Offer;
 import com.example.placementmanagementsystem.user.Users;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,23 +18,23 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Student {
+public class Recruiter {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @NotBlank
-    private String studentName;
+    private String RecruiterName;
     @NotBlank
     @Column(unique = true)
     @Email
     private String email;
+    @ManyToOne
+    @JoinColumn(name = "company_recruiter")
+    private Company company;
     @OneToOne
-    private Users usersProfile;
-    @NotNull
-    private double cgpa;
-    @JdbcTypeCode(SqlTypes.VARBINARY)
-    private byte[] resume;
-    private List<String> skills=new ArrayList<>();
+    private Users userProfile;
+    @OneToMany
+    private List<Job> job=new ArrayList<>();
     @OneToMany
     private List<Application> application=new ArrayList<>();
     @OneToMany

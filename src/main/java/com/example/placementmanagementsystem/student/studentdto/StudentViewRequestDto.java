@@ -16,7 +16,7 @@ public class StudentViewRequestDto {
     private String email;
     private String phoneNumber;
     private double cgpa;
-    private Offer offers;
-    private Application application;
+    private List<Offer> offers=new ArrayList<>();
+    private List<Application> application=new ArrayList<>();
     private List<String> skills=new ArrayList<>();
 }
