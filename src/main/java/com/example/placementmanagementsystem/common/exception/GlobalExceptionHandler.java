@@ -1,7 +1,8 @@
 package com.example.placementmanagementsystem.common.exception;
 
-import com.example.placementmanagementsystem.company.RecruiterIsAlreadyInTheList;
+import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterIsAlreadyInTheList;
 import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterDoesNotExist;
+import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterIsNotAssociatedWithAnyCompany;
 import com.example.placementmanagementsystem.user.userdto.ExceptionDto;
 import com.example.placementmanagementsystem.user.userexceptions.UserWithEmailAlreadyExists;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +32,13 @@ public class GlobalExceptionHandler {
         ExceptionDto error=new ExceptionDto(409, ex.getMessage(),"CONFLICT",req.getRequestURI());
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
+                .body(error);
+    }
+    @ExceptionHandler(RecruiterIsNotAssociatedWithAnyCompany.class)
+    public ResponseEntity<ExceptionDto> HandlerRecruiterIsNotAssociatedWithAnyCompanyException(Exception ex, HttpServletRequest req) {
+        ExceptionDto error=new ExceptionDto(400, ex.getMessage(),"BAD REQUEST",req.getRequestURI());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(error);
     }
 }

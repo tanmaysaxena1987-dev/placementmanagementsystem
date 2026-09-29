@@ -4,6 +4,7 @@ import com.example.placementmanagementsystem.company.companydtos.CompanyRegister
 import com.example.placementmanagementsystem.company.companydtos.CompanyRegisterResponseDto;
 import com.example.placementmanagementsystem.company.companydtos.CompanyViewRequestResponseDto;
 import com.example.placementmanagementsystem.recruiter.Recruiter;
+import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterIsAlreadyInTheList;
 import com.example.placementmanagementsystem.recruiter.RecruiterRepo;
 import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterDoesNotExist;
 import com.example.placementmanagementsystem.user.UserMapper;
@@ -11,13 +12,10 @@ import com.example.placementmanagementsystem.user.UserRepo;
 import com.example.placementmanagementsystem.user.Users;
 import com.example.placementmanagementsystem.user.userexceptions.UserWithEmailAlreadyExists;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class CompanyService {

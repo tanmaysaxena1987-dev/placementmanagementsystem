@@ -1,4 +1,4 @@
-package com.example.placementmanagementsystem.company;
+package com.example.placementmanagementsystem.recruiter.recruiterexception;
 
 public class RecruiterIsAlreadyInTheList extends RuntimeException {
     public RecruiterIsAlreadyInTheList(String message) {

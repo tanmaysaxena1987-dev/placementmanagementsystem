@@ -30,6 +30,9 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
                         ).permitAll()
+                        .requestMatchers("/api/student/**").hasRole("student")
+                        .requestMatchers("/api/company/**").hasRole("company")
+                        .requestMatchers("/api/recruiter/**","/api/job/registerjob").hasRole("RECRUITER")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

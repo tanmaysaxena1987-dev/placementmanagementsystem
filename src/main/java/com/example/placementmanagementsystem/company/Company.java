@@ -30,7 +30,7 @@ public class Company {
     private String email;
     @OneToOne
     private Users userProfile;
-    @OneToMany
+    @OneToMany(mappedBy = "company")
     private List<Job> job=new ArrayList<>();
     @OneToMany
     private List<Application> application=new ArrayList<>();
