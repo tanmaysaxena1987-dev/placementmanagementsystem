@@ -3,7 +3,7 @@ package com.example.placementmanagementsystem.student;
 import com.example.placementmanagementsystem.student.studentdto.StudentRegisterRequestDto;
 import com.example.placementmanagementsystem.student.studentdto.StudentRegisterResponseDto;
 import com.example.placementmanagementsystem.student.studentdto.StudentViewRequestDto;
-import com.example.placementmanagementsystem.user.Users;
+import com.example.placementmanagementsystem.user.User;
 import com.example.placementmanagementsystem.user.UserMapper;
 import com.example.placementmanagementsystem.user.UserRepo;
 import com.example.placementmanagementsystem.user.userexceptions.UserWithEmailAlreadyExists;
@@ -27,7 +27,7 @@ public class StudentService {
     public StudentRegisterResponseDto registerStudent(StudentRegisterRequestDto studentRegisterRequestDto) {
         if(userRepo.existsByEmail(studentRegisterRequestDto.getEmail()))
             throw  new UserWithEmailAlreadyExists("User with email"+studentRegisterRequestDto.getEmail()+" already exists");
-        Users users = userMapper.mapStudenttoUser(studentRegisterRequestDto.getEmail(),
+        User users = userMapper.mapStudenttoUser(studentRegisterRequestDto.getEmail(),
                               studentRegisterRequestDto.getPassword(),
                               studentRegisterRequestDto.getName(),
                               studentRegisterRequestDto.getPhoneNumber());
@@ -39,8 +39,7 @@ public class StudentService {
 
     public StudentViewRequestDto viewStudent() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Users user=userRepo.findByEmail(authentication.getName());
-        Student student=studentRepo.findById(user.getId()).get();
+        Student student=studentRepo.getByUserEmail(authentication.getName());
         StudentViewRequestDto studentViewRequestDto=studentMapper.toStudentViewRequestDto(student);
         return studentViewRequestDto;
     }

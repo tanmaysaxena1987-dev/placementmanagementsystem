@@ -9,7 +9,7 @@ import com.example.placementmanagementsystem.recruiter.RecruiterRepo;
 import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterDoesNotExist;
 import com.example.placementmanagementsystem.user.UserMapper;
 import com.example.placementmanagementsystem.user.UserRepo;
-import com.example.placementmanagementsystem.user.Users;
+import com.example.placementmanagementsystem.user.User;
 import com.example.placementmanagementsystem.user.userexceptions.UserWithEmailAlreadyExists;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class CompanyService {
     public CompanyRegisterResponseDto registerCompany(CompanyRegisterRequestDto companyRegisterRequestDto) {
         if(userRepo.existsByEmail(companyRegisterRequestDto.getEmail()))
             throw new UserWithEmailAlreadyExists("User with Email"+companyRegisterRequestDto.getEmail()+" already exists");
-        Users user=userMapper.mapCompanytoUser(companyRegisterRequestDto.getEmail(),
+        User user=userMapper.mapCompanytoUser(companyRegisterRequestDto.getEmail(),
                                         companyRegisterRequestDto.getName(),
                                         companyRegisterRequestDto.getPassword(),
                                         companyRegisterRequestDto.getPhoneNumber());
@@ -45,14 +45,14 @@ public class CompanyService {
 
     public CompanyViewRequestResponseDto viewProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Company company=companyRepo.findByEmail(authentication.getName());
+        Company company=companyRepo.findByUserEmail(authentication.getName());
         return companyMapper.toViewResponseDto(company);
     }
 
     public String addRecruiter(String email) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Company company = companyRepo.findByEmail(authentication.getName());
-        Recruiter recruiter = recruiterRepo.findByEmail(email);
+        Company company = companyRepo.findByUserEmail(authentication.getName());
+        Recruiter recruiter = recruiterRepo.findByUserEmail(email);
         if (recruiter == null)
             throw new RecruiterDoesNotExist("Recruiter with this email does not exist");
         if (recruiter.getCompany() != null && recruiter.getCompany().equals(company))

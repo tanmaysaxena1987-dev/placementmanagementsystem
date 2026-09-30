@@ -27,12 +27,12 @@ public class JobService {
     @Transactional
     public JobRegisterResponseDto registerJob(JobRegisterRequestDto jobRegisterRequestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Recruiter recruiter=recruiterRepo.findByEmail(authentication.getName());
-        if(!recruiter.getUserProfile().isEnabled())
+        Recruiter recruiter=recruiterRepo.findByUserEmail(authentication.getName());
+        if(!recruiter.getUser().isEnabled())
             throw new UserIsNotAllowedToPerformThisAction("The following Recruiter is not allowed to perform this action");
         if(recruiter.getCompany()==null)
             throw new RecruiterIsNotAssociatedWithAnyCompany("Recruiter is not associated with any company");
-        if(!recruiter.getCompany().getUserProfile().isEnabled())
+        if(!recruiter.getCompany().getUser().isEnabled())
             throw new UserIsNotAllowedToPerformThisAction("The following Company is not allowed to perform this action");
         Job job = jobMapper.toRegisterRequestDto(jobRegisterRequestDto,recruiter);
         job=jobRepo.save(job);

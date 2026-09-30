@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RecruiterRepo extends JpaRepository<Recruiter, Integer> {
-    Recruiter findByEmail(String email);
+    Recruiter findByUserId(Integer userId);
+    Recruiter findByUserEmail(String email);
 }

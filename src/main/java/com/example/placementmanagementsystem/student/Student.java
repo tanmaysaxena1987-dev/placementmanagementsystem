@@ -2,7 +2,7 @@ package com.example.placementmanagementsystem.student;
 
 import com.example.placementmanagementsystem.application.Application;
 import com.example.placementmanagementsystem.offer.Offer;
-import com.example.placementmanagementsystem.user.Users;
+import com.example.placementmanagementsystem.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,22 +20,17 @@ import java.util.List;
 @Setter
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotBlank
-    private String studentName;
-    @NotBlank
-    @Column(unique = true)
-    @Email
-    private String email;
     @OneToOne
-    private Users usersProfile;
+    @JoinColumn(name="user_id",nullable = false,unique = true)
+    private User user;
     @NotNull
     private double cgpa;
     @JdbcTypeCode(SqlTypes.VARBINARY)
     private byte[] resume;
     private List<String> skills=new ArrayList<>();
-    @OneToMany
+    @OneToMany(mappedBy = "student")
     private List<Application> application=new ArrayList<>();
     @OneToMany
     private List<Offer> offer=new ArrayList<>();

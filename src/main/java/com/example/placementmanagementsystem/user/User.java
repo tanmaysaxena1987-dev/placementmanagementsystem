@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Table(name = "Users")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

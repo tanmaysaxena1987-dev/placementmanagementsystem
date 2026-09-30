@@ -16,6 +16,10 @@ public class JobMapper {
         job.setLocation( dto.getLocation() );
         job.setPreferredSkills(dto.getSkills());
         job.setCompany(recruiter.getCompany());
+        job.setDescription(dto.getDescription());
+        job.setJobType( dto.getJobType() );
+        job.setEligibleDepartment(dto.getEligibleDepartments());
+        job.setGraduationDate( dto.getGraduationDate() );
         return job;
     }
     public JobRegisterResponseDto toRegisterResponseDto(Job job) {
@@ -23,12 +27,14 @@ public class JobMapper {
         dto.setDesignation(job.getDesignation());
         dto.setLocation( job.getLocation() );
         dto.setId(job.getId());
-        dto.setCompany_name(job.getCompany().getCompanyName());
         dto.setSkills(job.getPreferredSkills());
-        dto.setRecruiter_email(job.getRecruiter().getEmail());
         dto.setRecruiter_id(job.getRecruiter().getId());
-        dto.setRecruiter_name(job.getRecruiter().getRecruiterName());
+        dto.setCompany_name(job.getRecruiter().getCompany().getUser().getName());
         dto.setSalary(job.getSalary());
+        dto.setDescription(job.getDescription());
+        dto.setJobType(job.getJobType());
+        dto.setGraduationDate(job.getGraduationDate());
+        dto.setEligibleDepartment(job.getEligibleDepartment());
         return dto;
     }
 }

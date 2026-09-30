@@ -4,11 +4,11 @@ import com.example.placementmanagementsystem.application.Application;
 import com.example.placementmanagementsystem.company.Company;
 import com.example.placementmanagementsystem.job.Job;
 import com.example.placementmanagementsystem.offer.Offer;
-import com.example.placementmanagementsystem.user.Users;
+import com.example.placementmanagementsystem.user.User;
+import io.swagger.v3.oas.models.info.Contact;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,23 +20,19 @@ import java.util.List;
 @Setter
 public class Recruiter {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotBlank
-    private String RecruiterName;
-    @NotBlank
-    @Column(unique = true)
-    @Email
-    private String email;
     @ManyToOne
     @JoinColumn(name = "company_recruiter")
     private Company company;
     @OneToOne
-    private Users userProfile;
-    @OneToMany
+    @JoinColumn(name="user_id",nullable = false,unique = true)
+    private User user;
+    @OneToMany(mappedBy="recruiter")
     private List<Job> job=new ArrayList<>();
     @OneToMany
     private List<Application> application=new ArrayList<>();
     @OneToMany
     private List<Offer> offer=new ArrayList<>();
+
 }

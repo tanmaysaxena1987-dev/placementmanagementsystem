@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public Users mapStudenttoUser(String email, String password, String name, String phoneNumber) {
-        Users users = new Users();
+    public User mapStudenttoUser(String email, String password, String name, String phoneNumber) {
+        User users = new User();
         users.setEmail(email);
         users.setPassword(encoder.encode(password));
         users.setName(name);
@@ -18,8 +18,8 @@ public class UserMapper {
         users.setEmailVerified(false);
         return users;
     }
-    public Users mapRecruitertoUser(RecruiterRegisterRequestDto recruiterRegisterRequestDto) {
-        Users users = new Users();
+    public User mapRecruitertoUser(RecruiterRegisterRequestDto recruiterRegisterRequestDto) {
+        User users = new User();
         users.setName(recruiterRegisterRequestDto.getName());
         users.setPassword(encoder.encode(recruiterRegisterRequestDto.getPassword()));
         users.setPhoneNumber(recruiterRegisterRequestDto.getPhoneNumber());
@@ -29,8 +29,8 @@ public class UserMapper {
         users.setEnabled(true);
         return users;
     }
-    public Users mapCompanytoUser(String email, String name, String password, String phoneNumber) {
-        Users user = new Users();
+    public User mapCompanytoUser(String email, String name, String password, String phoneNumber) {
+        User user = new User();
         user.setEmail(email);
         user.setName(name);
         user.setPassword(encoder.encode(password));

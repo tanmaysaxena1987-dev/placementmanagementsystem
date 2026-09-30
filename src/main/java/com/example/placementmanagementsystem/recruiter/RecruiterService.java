@@ -4,7 +4,7 @@ import com.example.placementmanagementsystem.recruiter.recruiterdto.RecruiterReg
 import com.example.placementmanagementsystem.recruiter.recruiterdto.RecruiterRegisterResponseDto;
 import com.example.placementmanagementsystem.user.UserMapper;
 import com.example.placementmanagementsystem.user.UserRepo;
-import com.example.placementmanagementsystem.user.Users;
+import com.example.placementmanagementsystem.user.User;
 import com.example.placementmanagementsystem.user.userexceptions.UserWithEmailAlreadyExists;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ public class RecruiterService {
     public RecruiterRegisterResponseDto registerRecruiter(@Valid RecruiterRegisterRequestDto recruiterRegisterRequestDto) {
         if(userRepo.existsByEmail(recruiterRegisterRequestDto.getEmail()))
             throw new UserWithEmailAlreadyExists("User with"+ recruiterRegisterRequestDto.getEmail() +" already exists");
-        Users users=userMapper.mapRecruitertoUser(recruiterRegisterRequestDto);
+        User users=userMapper.mapRecruitertoUser(recruiterRegisterRequestDto);
         userRepo.save(users);
         Recruiter recruiter=recruiterMapper.toRecruiter(users);
         recruiterRepo.save(recruiter);
