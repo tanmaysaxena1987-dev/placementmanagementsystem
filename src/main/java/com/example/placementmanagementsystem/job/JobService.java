@@ -4,14 +4,10 @@ import com.example.placementmanagementsystem.job.jobdto.JobRegisterRequestDto;
 import com.example.placementmanagementsystem.job.jobdto.JobRegisterResponseDto;
 import com.example.placementmanagementsystem.recruiter.Recruiter;
 import com.example.placementmanagementsystem.recruiter.RecruiterRepo;
-import com.example.placementmanagementsystem.recruiter.recruiterdto.RecruiterRegisterResponseDto;
 import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterIsNotAssociatedWithAnyCompany;
 import com.example.placementmanagementsystem.user.userexceptions.UserIsNotAllowedToPerformThisAction;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -36,9 +32,6 @@ public class JobService {
             throw new UserIsNotAllowedToPerformThisAction("The following Company is not allowed to perform this action");
         Job job = jobMapper.toRegisterRequestDto(jobRegisterRequestDto,recruiter);
         job=jobRepo.save(job);
-        recruiter.getJob().add(job);
-        recruiterRepo.save(recruiter);
-        recruiter.getCompany().getJob().add(job);
         JobRegisterResponseDto responseDto=jobMapper.toRegisterResponseDto(job);
         return responseDto;
     }

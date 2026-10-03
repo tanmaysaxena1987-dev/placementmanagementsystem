@@ -1,5 +1,7 @@
 package com.example.placementmanagementsystem.common.exception;
 
+import com.example.placementmanagementsystem.job.jobexception.JobWithIdNotFound;
+import com.example.placementmanagementsystem.job.jobexception.StudentNotEligible;
 import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterIsAlreadyInTheList;
 import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterDoesNotExist;
 import com.example.placementmanagementsystem.recruiter.recruiterexception.RecruiterIsNotAssociatedWithAnyCompany;
@@ -36,6 +38,20 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(RecruiterIsNotAssociatedWithAnyCompany.class)
     public ResponseEntity<ExceptionDto> HandlerRecruiterIsNotAssociatedWithAnyCompanyException(Exception ex, HttpServletRequest req) {
+        ExceptionDto error=new ExceptionDto(400, ex.getMessage(),"BAD REQUEST",req.getRequestURI());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(error);
+    }
+    @ExceptionHandler(JobWithIdNotFound.class)
+    public ResponseEntity<ExceptionDto> HandleJobWithIdNotFound(Exception ex, HttpServletRequest req) {
+        ExceptionDto response=new ExceptionDto(404, ex.getMessage(),"NOT FOUND",req.getRequestURI());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(response);
+    }
+    @ExceptionHandler(StudentNotEligible.class)
+    public ResponseEntity<ExceptionDto> handleStudentNotEligible(Exception ex, HttpServletRequest req) {
         ExceptionDto error=new ExceptionDto(400, ex.getMessage(),"BAD REQUEST",req.getRequestURI());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)

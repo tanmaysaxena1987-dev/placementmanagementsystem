@@ -44,6 +44,8 @@ public class Job {
     @Enumerated(EnumType.STRING)
     @NotNull
     private JobType jobType;
+    @Enumerated(EnumType.STRING)
+    private JobStatus jobStatus;
     @ManyToOne
     @JoinColumn(name="company_job")
     private Company company;

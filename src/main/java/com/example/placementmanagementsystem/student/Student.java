@@ -18,6 +18,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name="students")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +30,8 @@ public class Student {
     private double cgpa;
     @JdbcTypeCode(SqlTypes.VARBINARY)
     private byte[] resume;
+    @ElementCollection
     private List<String> skills=new ArrayList<>();
     @OneToMany(mappedBy = "student")
     private List<Application> application=new ArrayList<>();
-    @OneToMany
-    private List<Offer> offer=new ArrayList<>();
 }

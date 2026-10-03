@@ -30,7 +30,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
                         ).permitAll()
-                        .requestMatchers("/api/student/**").hasRole("STUDENT")
+                        .requestMatchers("/api/student/**","/api/application/applyforjob/{id}").hasRole("STUDENT")
                         .requestMatchers("/api/company/**").hasRole("COMPANY")
                         .requestMatchers("/api/recruiter/**","/api/job/registerjob").hasRole("RECRUITER")
                         .anyRequest().authenticated()

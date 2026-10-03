@@ -30,7 +30,6 @@ public class StudentMapper {
         studentViewRequestDto.setPhoneNumber(student.getUser().getPhoneNumber());
         studentViewRequestDto.setCgpa(student.getCgpa());
         studentViewRequestDto.setApplication(student.getApplication());
-        studentViewRequestDto.setOffers(student.getOffer());
         studentViewRequestDto.setSkills(student.getSkills());
         return studentViewRequestDto;
     }

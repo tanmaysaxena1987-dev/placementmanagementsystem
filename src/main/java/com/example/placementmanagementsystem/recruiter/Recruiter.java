@@ -30,9 +30,4 @@ public class Recruiter {
     private User user;
     @OneToMany(mappedBy="recruiter")
     private List<Job> job=new ArrayList<>();
-    @OneToMany
-    private List<Application> application=new ArrayList<>();
-    @OneToMany
-    private List<Offer> offer=new ArrayList<>();
-
 }
